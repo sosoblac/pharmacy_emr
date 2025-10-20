@@ -1,13 +1,22 @@
 // /pages/api/drugs/restockDrug.js
 import { Pool } from "pg";
 
+// const pool = new Pool({
+//   user: "postgres",
+//   host: "localhost",
+//   database: "pharmacy_emr",
+//   password: "lamis",
+//   port: 5432,
+// });
+
+// ✅ Use Neon connection (via environment variable)
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "pharmacy_emr",
-  password: "lamis",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
